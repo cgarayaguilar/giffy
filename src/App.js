@@ -1,38 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import './App.css'
-import getGifs from './services/getGifs'
-
-const DEFAULT_GIFTS = [
-  'https://media.giphy.com/media/uRatoydECkMVlagvat/giphy.gif',
-  'https://media.giphy.com/media/D38NMx9QtAW4iLeF08/giphy.gif',
-]
-
-const DIFFERENT_GIFS = [
-  'https://media.giphy.com/media/huBkkFR80SqmQ/giphy.gif',
-  'https://media.giphy.com/media/jxODdkVOIGFgc/giphy.gif',
-]
+import ListOfGifs from './components/ListOfGifs'
+import { Link, Route } from 'wouter'
 
 function App() {
-  const [gifs, setGifs] = useState(DEFAULT_GIFTS)
-
-  useEffect(() => {
-    getGifs({ keyword: 'rick' }).then(gifs => setGifs(gifs))
-  }, [gifs])
+  const [keyword, setKeyword] = useState('panda')
 
   return (
     <div className="App">
       <section className="App-content">
-        {gifs.map(singleGift => (
-          <img key={singleGift} src={singleGift} alt="Elections" />
-        ))}
+        <h1>App</h1>
+        <Link to="/gif/panda">Gifs de pandas </Link>
+        <Link to="/gif/nicaragua">Gifs de Nicaragua </Link>
+        <Link to="/gif/colombia">Gifs de Colombia </Link>
+        <Link to="/gif/Mexico">Gifs de mexico </Link>
+
+        <Route path="/gif/:keyword" component={ListOfGifs} />
       </section>
-      <button
-        onClick={() => {
-          setGifs(DIFFERENT_GIFS)
-        }}
-      >
-        Change gifs
-      </button>
     </div>
   )
 }
