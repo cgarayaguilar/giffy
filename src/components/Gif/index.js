@@ -1,10 +1,10 @@
 import React from 'react'
-import './Gif.css'
+import './styles.css'
 
 export default function Gif({ title, id, url }) {
   return (
     <a href={`#${id}`} className="Gif">
-      <img src={url} alt="Elections" />
+      <img src={url} alt="Elections" loading="lazy" />
       <h4>{title}</h4>
     </a>
   )

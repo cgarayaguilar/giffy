@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 const API_KEY = 'tnJ9vqP5pv4kBkNFwSCztHCOHY3rxejh'
 
-export const getGifs = async ({ keyword = 'morty' } = {}) => {
+export const getGifs = async ({ keyword = 'random' } = {}) => {
   const apiURL = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${keyword}&limit=25&offset=0&rating=g&lang=en`
   try {
     const response = await fetch(apiURL)
