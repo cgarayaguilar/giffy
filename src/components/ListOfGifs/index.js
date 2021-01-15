@@ -4,7 +4,7 @@ import './styles.css'
 
 export default function ListOfGifs({ gifs }) {
   return (
-    <div>
+    <div className="ListOfGifs">
       {gifs.map(({ title, id, url }) => (
         <Gif key={id} id={id} title={title} url={url} />
       ))}

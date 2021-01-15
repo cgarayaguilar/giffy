@@ -3,8 +3,8 @@
 }
 
 .ListOfGifs {
-  column-count: var(--results-colums);
-  column-gap: 0.5em;
+  min-height: 100vh;
+  border: 1px solid red;
 }
 
 .ListOfGifs-item {
