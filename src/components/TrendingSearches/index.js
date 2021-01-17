@@ -1,11 +1,14 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { useNearScreen } from 'hooks/useNearScreen'
-//import { TrendingSearches } from 'components/TrendingSearches'
 
 const TrendingSearches = React.lazy(() => import('components/TrendingSearches'))
 
 const LazyTrending = () => {
   const { isNearScreen, fromRef } = useNearScreen({ distance: '0px' })
+
+  useEffect(() => {
+    console.log(isNearScreen)
+  }, [isNearScreen])
 
   return (
     <div ref={fromRef}>

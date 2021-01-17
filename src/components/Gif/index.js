@@ -2,7 +2,7 @@ import React from 'react'
 import './styles.css'
 import { Link } from 'wouter'
 
-export default function Gif({ title, id, url }) {
+const Gif = ({ title, id, url }) => {
   return (
     <Link to={`/gif/${id}`} className="Gif">
       <img src={url} alt="Elections" loading="lazy" />
@@ -10,3 +10,7 @@ export default function Gif({ title, id, url }) {
     </Link>
   )
 }
+
+export default React.memo(Gif, (prevProps, nextProps) => {
+  return prevProps.id === nextProps.id
+})

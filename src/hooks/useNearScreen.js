@@ -1,11 +1,18 @@
 import { useEffect, useState, useRef } from 'react'
 
-export const useNearScreen = ({ distance = '100px' } = {}) => {
-  const fromRef = useRef(null)
+export const useNearScreen = ({
+  distance = '100px',
+  externalRef,
+  once = true,
+} = {}) => {
   const [isNearScreen, setIsNearScreen] = useState(false)
+  const fromRef = useRef()
 
   useEffect(() => {
     let observer
+
+    const element = externalRef ? externalRef.current : fromRef.current
+    if (!element) return
 
     const onchange = (entries, observer) => {
       const el = entries[0]
@@ -13,7 +20,9 @@ export const useNearScreen = ({ distance = '100px' } = {}) => {
       if (el.isIntersecting) {
         setIsNearScreen(true)
         //Desconectarse una vez que haya cargado el componente
-        observer.disconnect()
+        once && observer.disconnect()
+      } else {
+        !once && setIsNearScreen(false)
       }
     }
 
@@ -27,11 +36,11 @@ export const useNearScreen = ({ distance = '100px' } = {}) => {
       })
 
       //Le pasamos un nodo del DOM al observe
-      observer.observe(fromRef.current)
+      observer.observe(element)
     })
 
-    return () => observer.disconnect()
-  })
+    return () => observer && observer.disconnect()
+  }, [distance, externalRef, once])
 
   return { isNearScreen, fromRef }
 }

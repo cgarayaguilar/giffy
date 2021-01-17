@@ -1,18 +1,27 @@
 .Gif {
-  border: 1px solid #eee;
   border-radius: 6px;
+  height: auto;
   display: flex;
-  width: 100%;
-  margin: 16px;
-  padding: 32px;
   flex-direction: column;
   color: #fff;
   text-decoration: none;
+  position: relative;
+  max-height: 300px;
 }
 .Gif h4 {
   margin: 0;
+  font-size: 12px;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.4);
+  left: 0;
+  bottom: 0;
+  padding: 8px;
 }
 
 .Gif img {
-  object-fit: contain;
+  border-radius: 6px;
+
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

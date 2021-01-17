@@ -1,6 +1,10 @@
 import { API_KEY, API_BASE } from './settings'
 
-export const getGifs = async ({ limit = 2, keyword = 'random', page } = {}) => {
+export const getGifs = async ({
+  limit = 10,
+  keyword = 'random',
+  page,
+} = {}) => {
   const apiURL = `${API_BASE}/gifs/search?api_key=${API_KEY}&q=${keyword}&limit=${limit}&offset=${
     page * limit
   }&rating=g&lang=en`
