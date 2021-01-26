@@ -1,29 +1,51 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useLocation } from 'wouter'
+import { useForm } from './hook'
 
-const SearchBar = ({ onSubmit }) => {
-  const [keyword, setKeyword] = useState('')
+const RATINGS = ['g', 'pg', 'pg-13', 'r']
 
-  const handleChange = e => {
-    setKeyword(e.target.value)
-  }
+const SearchBar = (initialRating = 'g', initialKeyword = '') => {
+    //const [keyword, setKeyword] = useState(decodeURIComponent(initialKeyword))
+    const [_, setPath] = useLocation()
+    const { keyword, rating, times, updateKeyword, updateRating } = useForm(
+        initialKeyword,
+        initialRating
+    )
 
-  const handleSubmit = e => {
-    e.preventDefault()
-    //We are going to go another path
-    onSubmit({ keyword })
-  }
+    const handleChange = e => {
+        updateKeyword(e.target.value)
+    }
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={keyword}
-        onChange={handleChange}
-        placeholder="Search your gifs here"
-      />
-      <input type="submit" value="Search" />
-    </form>
-  )
+    const handleChangeRating = e => {
+        updateRating(e.target.value)
+    }
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        //We are going to go another path
+        setPath(`/search/${keyword}/${rating}`)
+    }
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <input
+                type="text"
+                value={keyword}
+                onChange={handleChange}
+                placeholder="Search your gifs here"
+            />
+            <select value={rating} onChange={handleChangeRating}>
+                <option disabled>Rating type</option>
+                {RATINGS.map(rating => (
+                    <option key={rating} value={rating}>
+                        {rating}
+                    </option>
+                ))}
+            </select>
+            <button type="submit">Search</button>
+            <span>{times}</span>
+        </form>
+    )
 }
 
 export default React.memo(SearchBar)
